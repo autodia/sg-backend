@@ -1,5 +1,13 @@
 const { gql } = require("apollo-server-express");
 
+const {
+  GraphQLDateTime
+} = require('graphql-iso-date');
+
+const resolveFunctions = {
+  DateTime: GraphQLDateTime
+};
+
 // The GraphQL schema
 const typeDefs = gql`
   type Query {
@@ -18,19 +26,30 @@ const typeDefs = gql`
     updateProject(projectId: ID!, description: String, contacts: [ID!]): Project
   }
 
+  scalar DateTime
+
+  type Project {
+    _id: ID!
+    created: DateTime!
+    author: User!
+    name: String!
+    description: String!
+    contacts: [User!]!
+  }
+
   input ProjectInput {
-    created: String
     author: ID!
     name: String!
     description: String!
     contacts: [ID!]!
   }
 
-  input SamplesheetInput {
-    created: String
+  type Samplesheet {
+    _id: ID!
+    created: DateTime!
     fullname: String!
-    author: ID!
-    project_id: ID!
+    author: User!
+    project: Project!
     sequencer: String!
     run: String!
     flowcell: String
@@ -38,6 +57,29 @@ const typeDefs = gql`
     date: String!
     workflow: String!
     application: String!
+    assay: String!
+    description: String
+    chemistry: String!
+    reads1: String!
+    reads2: String!
+    adapter1: String!
+    adapter2: String!
+    samples: [Sample!]!
+  }
+
+
+  input SamplesheetInput {
+    fullname: String!
+    author: ID!
+    project: ID!
+    sequencer: String!
+    run: String!
+    flowcell: String
+    iemfileversion: String!
+    date: String!
+    workflow: String!
+    application: String!
+    assay: String
     description: String
     chemistry: String!
     reads1: String!
@@ -47,9 +89,20 @@ const typeDefs = gql`
     samples: [SampleInput!]
   }
 
-  input SampleInput {
-    lane: String
+  type Sample {
+    _id: ID!
+    lane: Int
     number: String!
+    library: String!
+    index1: String!
+    index2: String
+    description: String
+  }
+
+  input SampleInput {
+    lane: Int
+    number: String!
+    type: String!
     library: String!
     index1: String!
     index2: String
@@ -70,47 +123,6 @@ const typeDefs = gql`
 
   type AuthData {
     token: String!
-  }
-
-  type Samplesheet {
-    _id: ID!
-    created: String!
-    fullname: String!
-    author: ID!
-    project_id: ID!
-    sequencer: String!
-    run: String!
-    flowcell: String
-    iemfileversion: String!
-    date: String!
-    workflow: String!
-    application: String!
-    description: String
-    chemistry: String!
-    reads1: String!
-    reads2: String!
-    adapter1: String!
-    adapter2: String!
-    samples: [Sample!]!
-  }
-
-  type Sample {
-    _id: ID!
-    lane: String
-    number: String!
-    library: String!
-    index1: String!
-    index2: String
-    description: String
-  }
-
-  type Project {
-    _id: ID!
-    created: String!
-    author: User!
-    name: String!
-    description: String!
-    contacts: [User!]!
   }
 
   type DoubleIndex {

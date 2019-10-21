@@ -13,7 +13,8 @@ const resolvers = merge(
   getProjectResolver,
   userResolver,
   samplesheetResolver,
-  authResolver
+  authResolver, 
+  
 );
 
 exports.resolvers = resolvers;

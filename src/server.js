@@ -12,7 +12,7 @@ const { typeDefs } = require("./graphql/schema");
 const { resolvers } = require("./graphql/resolvers");
 const { context } = require("./graphql/context");
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8082;
 
 const app = express();
 app.use(bodyParser.json());
