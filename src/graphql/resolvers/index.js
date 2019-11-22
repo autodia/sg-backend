@@ -6,6 +6,7 @@ const getProjectResolver = require("./get-project");
 const samplesheetResolver = require("./samplesheet");
 const authResolver = require("./auth");
 const userResolver = require("./user");
+const sampleResolver = require("./sample");
 
 const resolvers = merge(
   assayResolver,
@@ -14,7 +15,7 @@ const resolvers = merge(
   userResolver,
   samplesheetResolver,
   authResolver, 
-  
+  sampleResolver 
 );
 
 exports.resolvers = resolvers;

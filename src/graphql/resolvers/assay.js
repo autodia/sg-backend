@@ -5,10 +5,9 @@ const Assay = require("../../models/Assay");
 module.exports = {
   Query: {
     assays: async () => {
-      // FIX AUTH
-      // if (!context.isAuth) {
-      //   throw new Error("Unauthenticated!");
-      // }
+      if (!context.isAuth) {
+        throw new Error("Unauthenticated!");
+      }
       try {
         const assays = await Assay.find();
         return assays;

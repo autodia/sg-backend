@@ -5,10 +5,9 @@ const Samplesheet = require("../../models/Samplesheet");
 module.exports = {
   Query: {
     samplesheets: async (parent, args, context) => {
-      // FIX AUTH
-      // if (!context.isAuth) {
-      //   throw new Error("Unauthenticated!");
-      // }
+      if (!context.isAuth) {
+        throw new Error("Unauthenticated!");
+      }
       try {
         const samplesheets = await Samplesheet.find();
         return samplesheets;
@@ -20,29 +19,27 @@ module.exports = {
   },
   Mutation: {
     createSamplesheet: async (parent, { samplesheetInput }, context) => {
-      // FIX AUTH
-      // if (!context.isAuth) {
-      //   throw new Error("Unauthenticated!");
-      // }
+      if (!context.isAuth) {
+        throw new Error("Unauthenticated!");
+      }
       const samplesheet = new Samplesheet({
-        author: context.userId,
-        project_id: "5d1dd7a39a0e623d185128ed",
+        created: new Date(),
         fullname: samplesheetInput.fullname,
+        author: context.userId,
+        project: samplesheetInput.project,
         secuencer: samplesheetInput.secuencer,
         run: samplesheetInput.run,
         flowcell: samplesheetInput.flowcell,
         iemfileversion: samplesheetInput.iemfileversion,
-        sequencer: samplesheetInput.sequencer,
         date: new Date(samplesheetInput.date),
         workflow: samplesheetInput.workflow,
         application: samplesheetInput.application,
         description: samplesheetInput.description,
         chemistry: samplesheetInput.chemistry,
-        reads1: samplesheetInput.reads1,
-        reads2: samplesheetInput.reads2,
+        reads: samplesheetInput.reads,
+        umi: samplesheetInput.umi,
         adapter1: samplesheetInput.adapter1,
-        adapter2: samplesheetInput.adapter2,
-        samples: new Array(samplesheetInput.samples)
+        adapter2: samplesheetInput.adapter2
       });
       let createdSamplesheet;
       try {

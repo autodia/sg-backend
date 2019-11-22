@@ -1,15 +1,12 @@
 const mongoose = require("mongoose");
 const config = require("config");
 const assert = require("assert");
-
-const db = config.get("mongodb.URI");
-
-
 const Assay = require("../models/Assay");
 
+const db_uri = process.env.DB_URI || config.get("mongodb.URI");
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, {
+    await mongoose.connect(db_uri, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false

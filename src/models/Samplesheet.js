@@ -16,10 +16,6 @@ const SamplesheetSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user"
   },
-  project_id: {
-    type: Schema.Types.ObjectId,
-    ref: "project"
-  },
   sequencer: {
     type: String,
     required: true
@@ -47,6 +43,10 @@ const SamplesheetSchema = new Schema({
     type: String,
     required: true
   },
+  assay: {
+    type: String,
+    required: true
+  },
   description: {
     type: String
   },
@@ -54,11 +54,11 @@ const SamplesheetSchema = new Schema({
     type: String,
     required: true
   },
-  reads1: {
+  reads: {
     type: String,
     required: true
   },
-  reads2: {
+  umi: {
     type: String,
     required: true
   },
@@ -69,42 +69,7 @@ const SamplesheetSchema = new Schema({
   adapter2: {
     type: String,
     required: true
-  },
-  /* samples: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "sample"
-    }
-  ] */
-  samples: [
-    {
-      lane: {
-        type: String
-      },
-      number: {
-        type: String,
-        required: true
-      },
-      type: {
-        type: String,
-        required: true
-      },
-      library: {
-        type: String,
-        required: true
-      },
-      index1: {
-        type: String,
-        required: true
-      },
-      index2: {
-        type: String
-      },
-      description: {
-        type: String
-      }
-    }
-  ]
+  }
 });
 
 module.exports = Samplesheet = mongoose.model("samplesheet", SamplesheetSchema, 'samplesheet');

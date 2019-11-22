@@ -21,8 +21,9 @@ const typeDefs = gql`
 
   type Mutation {
     createProject(projectInput: ProjectInput!): Project!
-    createUser(userInput: UserInput): User
+    createUser(userInput: UserInput!): User
     createSamplesheet(samplesheetInput: SamplesheetInput): Samplesheet!
+    createSamples(samplesInput: [SampleInput!]): [Sample!]
     updateProject(projectId: ID!, description: String, contacts: [ID!]): Project
   }
 
@@ -71,7 +72,6 @@ const typeDefs = gql`
   input SamplesheetInput {
     fullname: String!
     author: ID!
-    project: ID!
     sequencer: String!
     run: String!
     flowcell: String
@@ -82,16 +82,16 @@ const typeDefs = gql`
     assay: String
     description: String
     chemistry: String!
-    reads1: String!
-    reads2: String!
+    reads: String!
+    umi: String!
     adapter1: String!
     adapter2: String!
-    samples: [SampleInput!]
   }
 
   type Sample {
     _id: ID!
     lane: Int
+    project: ID!
     number: String!
     library: String!
     index1: String!
@@ -100,6 +100,7 @@ const typeDefs = gql`
   }
 
   input SampleInput {
+    samplesheet: ID!,
     lane: Int
     number: String!
     type: String!
@@ -110,9 +111,8 @@ const typeDefs = gql`
   }
 
   input UserInput {
-    name: String!
+    username: String!
     email: String!
-    password: String!
   }
 
   type User {

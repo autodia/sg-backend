@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SampleSchema = new Schema({
-  samplesheet_id: {
+  samplesheet: {
     type: Schema.Types.ObjectId,
     ref: "samplesheet"
   },
@@ -13,6 +13,10 @@ const SampleSchema = new Schema({
   number: {
     type: String,
     required: true
+  },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: "project"
   },
   type: {
     type: String,

@@ -1,6 +1,6 @@
 {
     "mongodb": {
-        "URI": "mongodb://mongo:27017/sample-gen"
+        "URI": "mongodb://localhost:27017/sample-gen"
     },
     "jwt": {
         "secret": "secret"

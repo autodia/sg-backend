@@ -38,11 +38,10 @@ module.exports = {
         if (existingUser) {
           throw new Error("User exists already.");
         }
-        const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 
         const user = new User({
           username: args.userInput.username,
-          password: hashedPassword
+          email: args.userInput.email
         });
 
         const result = await user.save();

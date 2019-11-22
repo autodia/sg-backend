@@ -5,10 +5,9 @@ const Project = require("../../models/Project");
 module.exports = {
   Query: {
     projects: async (root, args, context) => {
-      // FIX AUTH
-      // if (!context.isAuth) {
-      //   throw new Error("Unauthenticated!");
-      // }
+      if (!context.isAuth) {
+        throw new Error("Unauthenticated!");
+      }
       try {
         const projects = await Project.find()
           .populate('author')
@@ -24,12 +23,11 @@ module.exports = {
   },
   Mutation: {
     createProject: async (root, args, context) => {
-      // FIX AUTH
-      // if (!context.isAuth) {
-      //   throw new Error("Unauthenticated!");
-      // }
+      if (!context.isAuth) {
+        throw new Error("Unauthenticated!");
+      }
       const project = new Project({
-        created: new Date(args.projectInput.created),
+        created: new Date(),
         author: context.userId,
         name: args.projectInput.name,
         description: args.projectInput.description,
